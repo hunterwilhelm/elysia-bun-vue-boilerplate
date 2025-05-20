@@ -29,6 +29,30 @@
         </v-card-subtitle>
       </v-card>
 
+      <v-card>
+        <v-card-title>WebSocket status</v-card-title>
+        <v-card-subtitle>
+          <v-table>
+            <thead>
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Status</td>
+                <td>{{ wsReturn.status }}</td>
+              </tr>
+              <tr>
+                <td>Data</td>
+                <td>{{ wsReturn.data }}</td>
+              </tr>
+            </tbody>
+          </v-table>
+        </v-card-subtitle>
+      </v-card>
+
       <v-img
         class="mb-4"
         height="150"
@@ -90,9 +114,16 @@
 </template>
 
 <script setup lang="ts">
-  import { useFetch } from '@vueuse/core';
+  import { useFetch, useWebSocket } from '@vueuse/core';
 
   const fetchReturn = useFetch('/api')
+  const wsReturn = useWebSocket('ws://localhost:3399/ws', {
+    heartbeat: {
+      message: 'ping',
+      interval: 1000,
+      pongTimeout: 1000,
+    },
+  })
 
   const links = [
     {
