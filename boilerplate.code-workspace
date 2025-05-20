@@ -1,0 +1,27 @@
+{
+  "folders": [
+    {
+      "name": "ROOT",
+      "path": "./"
+    },
+    {
+      "name": "Back",
+      "path": "packages/back"
+    },
+    {
+      "name": "Front",
+      "path": "packages/front"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "packages/": true
+    },
+    "editor.gotoLocation.multipleDefinitions": "goto",
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+    "typescript.tsdk": "./node_modules/typescript/lib"
+  }
+}
