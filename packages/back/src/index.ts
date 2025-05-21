@@ -1,4 +1,9 @@
 import { Elysia } from "elysia";
+import { orpcRouter } from "./orpc.router";
+import { OpenAPIHandler } from '@orpc/openapi/fetch'
+
+
+const handler = new OpenAPIHandler(orpcRouter)
 
 const app = new Elysia()
   .get("/", () => "Hello from Elysia")
@@ -11,6 +16,17 @@ const app = new Elysia()
       }
 
     },
+  })
+  .all('/rpc*', async ({ request }) => {
+    console.log(await request.clone().json())
+    const { response } = await handler.handle(request, {
+      context: {
+        headers: Object.fromEntries(request.headers)
+      },
+      prefix: '/rpc',
+    })
+
+    return response ?? new Response('Not Found', { status: 404 })
   })
   .listen(3399);
 

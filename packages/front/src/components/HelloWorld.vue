@@ -14,15 +14,15 @@
             <tbody>
               <tr>
                 <td>Is Fetching</td>
-                <td>{{ fetchReturn.isFetching }}</td>
+                <td>{{ listReturn.isFetching }}</td>
               </tr>
               <tr>
                 <td>Error</td>
-                <td>{{ fetchReturn.error }}</td>
+                <td>{{ listReturn.error }}</td>
               </tr>
               <tr>
                 <td>Response</td>
-                <td>{{ fetchReturn.data }}</td>
+                <td>{{ listReturn.data }}</td>
               </tr>
             </tbody>
           </v-table>
@@ -114,9 +114,13 @@
 </template>
 
 <script setup lang="ts">
-  import { useFetch, useWebSocket } from '@vueuse/core';
+  import { useWebSocket } from '@vueuse/core';
+  import { useQuery } from '@tanstack/vue-query'
+  import { orpcClient, orpcUtils } from '@/plugins/orpc';
+  orpcUtils.planet.find.call({ id: 1 }).then(console.log)
+  orpcClient.planet.find({ id: 1 }).then(console.log)
+  const listReturn = useQuery(orpcUtils.planet.find.queryOptions({ input: { id: 123 } }))
 
-  const fetchReturn = useFetch('/api')
   const wsReturn = useWebSocket('ws://localhost:3399/ws', {
     heartbeat: {
       message: 'ping',
