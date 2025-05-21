@@ -18,11 +18,11 @@
               </tr>
               <tr>
                 <td>Error</td>
-                <td>{{ listReturn.error }}</td>
+                <td>{{ listReturn.error.value }}</td>
               </tr>
               <tr>
                 <td>Response</td>
-                <td>{{ listReturn.data }}</td>
+                <td>{{ listReturn.data.value }}</td>
               </tr>
             </tbody>
           </v-table>
@@ -114,20 +114,17 @@
 </template>
 
 <script setup lang="ts">
-  import { useWebSocket } from '@vueuse/core';
-  import { useQuery } from '@tanstack/vue-query'
-  import { orpcClient, orpcUtils } from '@/plugins/orpc';
-  orpcUtils.planet.find.call({ id: 1 }).then(console.log)
-  orpcClient.planet.find({ id: 1 }).then(console.log)
-  const listReturn = useQuery(orpcUtils.planet.find.queryOptions({ input: { id: 123 } }))
+  import { orpcClientSocket, orpcUtils } from '@/plugins/orpc';
+  import { useQuery } from '@tanstack/vue-query';
+  const listReturn = useQuery(orpcUtils.planet.find.queryOptions({ input: { id: 123 }, throwOnError: error => {
+    console.error(error)
+    return false
+  } }))
 
-  const wsReturn = useWebSocket('ws://localhost:3399/ws', {
-    heartbeat: {
-      message: 'ping',
-      interval: 1000,
-      pongTimeout: 1000,
-    },
-  })
+  const wsReturn = {};
+  console.log(setInterval(() => {
+    orpcClientSocket.ping({ id: 123 })
+  }, 1000))
 
   const links = [
     {

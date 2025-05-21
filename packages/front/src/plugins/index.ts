@@ -5,18 +5,26 @@
  */
 
 // Plugins
-import vuetify from './vuetify'
-import router from '../router'
+import vuetify from './vuetify';
+import router from '../router';
 
 // Types
-import type { App } from 'vue'
+import type { App } from 'vue';
 
-import { VueQueryPlugin } from '@tanstack/vue-query'
-
+import { VueQueryPlugin } from '@tanstack/vue-query';
+import { QueryClient } from '@tanstack/vue-query';
 
 export function registerPlugins (app: App) {
-  app
-    .use(vuetify)
-    .use(router)
-    .use(VueQueryPlugin)
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+  app.use(vuetify);
+  app.use(router);
+  app.use(VueQueryPlugin, {
+    queryClient,
+  });
 }

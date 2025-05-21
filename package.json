@@ -1,17 +1,17 @@
 {
   "name": "elysia-bun-vue-boilerplate",
   "module": "index.ts",
-  "type": "module",
-  "private": true,
-  "scripts": {
-    "dev": "bunx concurrently --prefix-colors \"blue.bold,magenta.bold\" --prefix \"[{name}]\" --names \"server,client\" \"(cd ./packages/back && bun run dev)\" \"(cd ./packages/front && bun run dev)\""
-  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
+  "private": true,
+  "scripts": {
+    "dev": "bunx concurrently --prefix-colors \"blue.bold,magenta.bold\" --prefix \"[{name}]\" --names \"server,client\" \"(cd ./packages/back && bun run dev)\" \"(cd ./packages/front && bun run dev)\""
+  },
+  "type": "module",
   "workspaces": [
     "packages/front",
     "packages/back"

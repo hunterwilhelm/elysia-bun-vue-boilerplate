@@ -8,6 +8,11 @@ const PlanetSchema = z.object({
   description: z.string().optional(),
 })
 
+export const ping = os
+  .handler(async () => {
+    return 'pong'
+  })
+
 export const listPlanet = os
   .input(
     z.object({

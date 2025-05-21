@@ -69,10 +69,15 @@ export default defineConfig({
     port: 2999,
     host: true,
     proxy: {
-      '/api': {
+      '/api/rpc': {
         changeOrigin: true,
-        target: process.env.DEV_SERVER_TARGET ?? 'http://localhost:3399',
-        rewrite: path => path.replace(/^\/api/, ''),
+        target: 'http://localhost:3399/rpc',
+        rewrite: path => path.replace(/^\/api\/rpc/, ''),
+      },
+      '/api/ws': {
+        changeOrigin: true,
+        target: 'http://localhost:3399/ws',
+        rewrite: path => path.replace(/^\/api\/ws/, ''),
       },
     },
   },

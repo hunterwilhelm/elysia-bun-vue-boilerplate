@@ -1,14 +1,56 @@
 {
-  "files": [],
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  // "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@back/*": ["../back/src/*"]
+    },
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "strictNullChecks": true,
+    "noEmit": true,
+    "sourceMap": false,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true
+  },
   "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
     {
       "path": "../back/tsconfig.json"
     }
+  ],
+  // This forces TS to include DOM types
+  "files": [
+    // Makes Intellisense and types work for DOM
+    "../../node_modules/typescript/lib/lib.dom.d.ts",
+    // Makes Intellisense and types work for Vuetify
+    // "../../node_modules/vuetify/lib/index.d.mts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "../common/**/*",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "vite.utils.ts",
+    "vite-env.d.ts",
+    "../query-key-factory/src/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "playwright-report"
   ]
 }

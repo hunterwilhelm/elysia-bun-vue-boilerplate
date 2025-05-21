@@ -1,35 +1,48 @@
+import { RPCHandler } from "@orpc/server/fetch";
 import { Elysia } from "elysia";
 import { orpcRouter } from "./orpc.router";
-import { OpenAPIHandler } from '@orpc/openapi/fetch'
+import { experimental_RPCHandler as SocketRPCHandler } from '@orpc/server/bun-ws'
+import { orpcSocketRouter } from "./orpc.socket.router";
 
 
-const handler = new OpenAPIHandler(orpcRouter)
+const handler = new RPCHandler(orpcRouter);
 
-const app = new Elysia()
-  .get("/", () => "Hello from Elysia")
+const socketHandler = new SocketRPCHandler(orpcSocketRouter)
+
+
+const elysiaApp = new Elysia()
+  .all("/rpc*", async ({ request }: { request: Request }) => {
+    const { response } = await handler.handle(request, {
+      prefix: "/rpc",
+      context: {
+        headers: Object.fromEntries(request.headers),
+      },
+    });
+
+    return response ?? new Response("Not Found", { status: 404 });
+  })
   .ws("/ws", {
     message(ws, message) {
-      if (message === "ping") {
-        ws.send("pong");
-      } else {
-        ws.send(message);
+      try {
+        socketHandler.message(
+          ws,
+          typeof message != 'string' ? JSON.stringify(message) : message, 
+          {
+            context: {
+              headers: Object.fromEntries([]),
+            }
+          }
+        )
       }
-
+      catch (error) {
+        console.error('PROXY TRPC WS: message error', error)
+      }
     },
-  })
-  .all('/rpc*', async ({ request }) => {
-    console.log(await request.clone().json())
-    const { response } = await handler.handle(request, {
-      context: {
-        headers: Object.fromEntries(request.headers)
-      },
-      prefix: '/rpc',
-    })
-
-    return response ?? new Response('Not Found', { status: 404 })
+    close(ws) {
+      socketHandler.close(ws)
+    }
   })
   .listen(3399);
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+console.log(`🦊 Elysia is running at http://localhost:3399`);
+
