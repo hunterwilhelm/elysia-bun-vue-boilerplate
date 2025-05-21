@@ -2,7 +2,7 @@
   <v-container class="fill-height" max-width="900">
     <div>
       <v-card>
-        <v-card-title>Server status</v-card-title>
+        <v-card-title>TRPC status</v-card-title>
         <v-card-subtitle>
           <v-table>
             <thead>
@@ -14,44 +14,21 @@
             <tbody>
               <tr>
                 <td>Is Fetching</td>
-                <td>{{ fetchReturn.isFetching }}</td>
+                <td>{{ greetQuery.isFetching }}</td>
               </tr>
               <tr>
                 <td>Error</td>
-                <td>{{ fetchReturn.error }}</td>
+                <td>{{ greetQuery.error }}</td>
               </tr>
               <tr>
                 <td>Response</td>
-                <td>{{ fetchReturn.data }}</td>
+                <td>{{ greetQuery.data }}</td>
               </tr>
             </tbody>
           </v-table>
         </v-card-subtitle>
       </v-card>
 
-      <v-card>
-        <v-card-title>WebSocket status</v-card-title>
-        <v-card-subtitle>
-          <v-table>
-            <thead>
-              <tr>
-                <th>Property</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Status</td>
-                <td>{{ wsReturn.status }}</td>
-              </tr>
-              <tr>
-                <td>Data</td>
-                <td>{{ wsReturn.data }}</td>
-              </tr>
-            </tbody>
-          </v-table>
-        </v-card-subtitle>
-      </v-card>
 
       <v-img
         class="mb-4"
@@ -114,16 +91,15 @@
 </template>
 
 <script setup lang="ts">
-  import { useFetch, useWebSocket } from '@vueuse/core';
+  import { useTRPC } from '@/composables/useTRPC';
+  import { ref } from 'vue';
 
-  const fetchReturn = useFetch('/api')
-  const wsReturn = useWebSocket('ws://localhost:3399/ws', {
-    heartbeat: {
-      message: 'ping',
-      interval: 1000,
-      pongTimeout: 1000,
-    },
+  const trpc = useTRPC();
+  const b = ref({
+    name: 1,
   })
+  const greetQuery = trpc.greet.useQuery(b);
+
 
   const links = [
     {

@@ -8,6 +8,13 @@
     "jsx": "react-jsx",
     "allowJs": true,
 
+    // Path aliases
+    "baseUrl": ".",
+    "paths": {
+      "@back/*": ["packages/back/src/*"],
+      "@front/*": ["packages/front/src/*"]
+    },
+
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

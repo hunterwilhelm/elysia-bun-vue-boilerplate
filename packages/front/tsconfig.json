@@ -1,11 +1,22 @@
 {
   "files": [],
+  "compilerOptions": {
+    "paths": {
+      "@back/*": [
+        "../back/src/*"
+      ]
+    },
+    "composite": true
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"
     },
     {
       "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "../back/tsconfig.json"
     }
   ]
 }

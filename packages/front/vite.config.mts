@@ -53,6 +53,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@back': fileURLToPath(new URL('../back/src', import.meta.url)),
     },
     extensions: [
       '.js',

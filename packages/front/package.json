@@ -12,9 +12,13 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@falcondev-oss/trpc-vue-query": "^0.5.0",
     "@fontsource/roboto": "5.2.5",
     "@mdi/font": "7.4.47",
+    "@tanstack/vue-query": "^5.76.0",
+    "@trpc/client": "^11.1.2",
     "@vueuse/core": "^13.2.0",
+    "app": "../back",
     "vue": "^3.5.13",
     "vuetify": "^3.8.1"
   },
