@@ -1,6 +1,6 @@
-# Elysia-Bun-Vue Boilerplate
+# Express-Node-Vue Boilerplate
 
-This project serves as a boilerplate for developing applications using the Elysia framework with Bun, Vuetify, and Vue.js. It leverages Bun's workspace feature for managing multiple packages.
+This project serves as a boilerplate for developing applications using Express with Node.js, Vuetify, and Vue.js. It leverages npm workspaces for managing multiple packages.
 
 ## Prerequisites
 

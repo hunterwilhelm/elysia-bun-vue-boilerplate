@@ -1,4 +1,3 @@
-import type { IncomingHttpHeaders } from 'node:http'
 import { ORPCError, os } from '@orpc/server'
 import { z } from 'zod'
 
@@ -34,7 +33,7 @@ export const findPlanet = os
   })
 
 export const createPlanet = os
-  .$context<{ headers: IncomingHttpHeaders }>()
+  .$context<{}>()
   // .use(({ context, next }) => {
   //   const user = parseJWT(context.headers.authorization?.split(' ')[1])
 
