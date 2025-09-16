@@ -7,10 +7,10 @@
     "dev": "bunx concurrently --prefix-colors \"blue.bold,magenta.bold\" --prefix \"[{name}]\" --names \"server,client\" \"(cd ./packages/back && bun run dev)\" \"(cd ./packages/front && bun run dev)\""
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "1.2.22"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.2"
   },
   "workspaces": [
     "packages/front",
