@@ -1,8 +1,8 @@
 {
-  "name": "express-node-vue-boilerplate",
+  "name": "elysia-bun-vue-boilerplate",
   "private": true,
   "scripts": {
-    "dev": "concurrently --prefix-colors \"blue.bold,magenta.bold\" --prefix \"[{name}]\" --names \"server,client\" \"npm run dev --workspace=packages/back\" \"npm run dev --workspace=packages/front\""
+    "dev": "bunx concurrently --prefix-colors \"blue.bold,magenta.bold\" --prefix \"[{name}]\" --names \"server,client\" \"(cd ./packages/back && bun run dev)\" \"(cd ./packages/front && bun run dev)\""
   },
   "type": "module",
   "workspaces": [
@@ -10,7 +10,11 @@
     "packages/back"
   ],
   "devDependencies": {
+    "@types/bun": "1.2.22",
     "concurrently": "^8.2.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.9.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.2"
   }
 }
