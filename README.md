@@ -27,8 +27,8 @@ Visit [http://localhost:2999](http://localhost:2999) to view your application in
 ## Technologies Used
 
 - **Bun v1.2**: A fast and modern JavaScript runtime.
-- **Elysia v1.3**: A lightweight and efficient web framework.
-- **Vuetify v3.8**: A popular Vue UI library for building visually appealing applications.
+- **Elysia v1.4**: A lightweight and efficient web framework.
+- **Vuetify v3.10**: A popular Vue UI library for building visually appealing applications.
 - **Vue v3.5**: The progressive JavaScript framework for building user interfaces.
 
 ## Getting Started
